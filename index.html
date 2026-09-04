@@ -63,25 +63,25 @@
 
                     <!-- Rounded Floating Category Dropdown (Anchored right below 3 bars) -->
                     <div class="mobile-nav-popup" id="mobileNavPopup">
-                        <div class="mobile-popup-header">Explore Categories</div>
+                        <div class="mobile-popup-header">Categories</div>
                         <a href="#products" class="mobile-popup-link active" data-cat="all" onclick="filterCategory('all', event); closeMobileNav();">
-                            <span>✨ All Curations</span>
+                            <span>All</span>
                             <span class="popup-arrow">&rarr;</span>
                         </a>
                         <a href="#products" class="mobile-popup-link" data-cat="jewelry" onclick="filterCategory('jewelry', event); closeMobileNav();">
-                            <span>💎 Fine Jewelry</span>
+                            <span>Jewelry</span>
                             <span class="popup-arrow">&rarr;</span>
                         </a>
                         <a href="#products" class="mobile-popup-link" data-cat="fashion" onclick="filterCategory('fashion', event); closeMobileNav();">
-                            <span>👗 Formal & Pret</span>
+                            <span>Fashion</span>
                             <span class="popup-arrow">&rarr;</span>
                         </a>
                         <a href="#products" class="mobile-popup-link" data-cat="accessories" onclick="filterCategory('accessories', event); closeMobileNav();">
-                            <span>👜 Handbags & Clutches</span>
+                            <span>Accessories</span>
                             <span class="popup-arrow">&rarr;</span>
                         </a>
                         <a href="#reviews" class="mobile-popup-link" onclick="elegantScrollTo('#reviews', { event }); closeMobileNav();">
-                            <span>⭐ Client Reviews</span>
+                            <span>Reviews</span>
                             <span class="popup-arrow">&rarr;</span>
                         </a>
                     </div>
@@ -653,11 +653,21 @@
         window.toggleMobileNav = toggleMobileNav;
         window.closeMobileNav = closeMobileNav;
 
-        // Dismiss on Escape key
+        // Dismiss on Escape key or outside click/tap
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeMobileNav();
                 toggleCart(false);
+            }
+        });
+
+        document.addEventListener('pointerdown', (e) => {
+            const popup = document.getElementById('mobileNavPopup');
+            const btn = document.getElementById('hamburgerBtn');
+            if (popup && popup.classList.contains('active')) {
+                if (!popup.contains(e.target) && (!btn || !btn.contains(e.target))) {
+                    closeMobileNav();
+                }
             }
         });
     </script>
