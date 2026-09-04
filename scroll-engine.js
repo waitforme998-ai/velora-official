@@ -102,7 +102,32 @@
         initScrollReveals();
         initStickyNav();
         initAnchorIntercept();
+        initReviewsTrackPause();
     });
+
+    // Pause autoscrolling reviews when grabbed, touched, or hovered; resume smoothly on release
+    function initReviewsTrackPause() {
+        const track = document.querySelector('.reviews-track');
+        if (!track) return;
+
+        const pauseTrack = () => {
+            track.classList.add('is-paused');
+            track.style.animationPlayState = 'paused';
+        };
+
+        const resumeTrack = () => {
+            track.classList.remove('is-paused');
+            track.style.animationPlayState = 'running';
+        };
+
+        track.addEventListener('mouseenter', pauseTrack);
+        track.addEventListener('mouseleave', resumeTrack);
+        track.addEventListener('pointerdown', pauseTrack);
+        window.addEventListener('pointerup', resumeTrack);
+        track.addEventListener('touchstart', pauseTrack, { passive: true });
+        window.addEventListener('touchend', resumeTrack, { passive: true });
+        window.addEventListener('touchcancel', resumeTrack, { passive: true });
+    }
 
     // Intercept all internal anchor clicks to prevent native teleportation jumps
     function initAnchorIntercept() {
