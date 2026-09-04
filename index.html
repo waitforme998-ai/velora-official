@@ -54,12 +54,41 @@
 
                 <!-- Actions -->
                 <div class="nav-actions">
-                    <!-- Hamburger Menu (mobile only) -->
-                    <button class="hamburger-btn" onclick="toggleMobileNav()" aria-label="Menu">
+                    <!-- Hamburger Menu Button (mobile only) -->
+                    <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMobileNav(event)" aria-label="Menu" aria-expanded="false">
                         <span></span>
                         <span></span>
                         <span></span>
                     </button>
+
+                    <!-- Rounded Floating Category Dropdown (Anchored right below 3 bars) -->
+                    <div class="mobile-nav-popup" id="mobileNavPopup">
+                        <div class="mobile-popup-header">Explore Categories</div>
+                        <a href="#products" class="mobile-popup-link active" data-cat="all" onclick="filterCategory('all', event); closeMobileNav();">
+                            <span>✨ All Curations</span>
+                            <span class="popup-arrow">&rarr;</span>
+                        </a>
+                        <a href="#products" class="mobile-popup-link" data-cat="jewelry" onclick="filterCategory('jewelry', event); closeMobileNav();">
+                            <span>💎 Fine Jewelry</span>
+                            <span class="popup-arrow">&rarr;</span>
+                        </a>
+                        <a href="#products" class="mobile-popup-link" data-cat="fashion" onclick="filterCategory('fashion', event); closeMobileNav();">
+                            <span>👗 Formal & Pret</span>
+                            <span class="popup-arrow">&rarr;</span>
+                        </a>
+                        <a href="#products" class="mobile-popup-link" data-cat="accessories" onclick="filterCategory('accessories', event); closeMobileNav();">
+                            <span>👜 Handbags & Clutches</span>
+                            <span class="popup-arrow">&rarr;</span>
+                        </a>
+                        <a href="#reviews" class="mobile-popup-link" onclick="elegantScrollTo('#reviews', { event }); closeMobileNav();">
+                            <span>⭐ Client Reviews</span>
+                            <span class="popup-arrow">&rarr;</span>
+                        </a>
+                    </div>
+
+                    <!-- Outside Click Dismiss Backdrop -->
+                    <div class="mobile-popup-backdrop" id="mobilePopupBackdrop" onclick="closeMobileNav()"></div>
+
                     <a href="https://wa.me/923130665364?text=Hi%20Velora%20Official!%20I%20have%20an%20inquiry." target="_blank" class="btn-standalone-wa" title="Chat directly on WhatsApp">
                         <!-- Official WhatsApp Standalone Logo SVG (no circle) -->
                         <svg width="26" height="26" viewBox="0 0 308 308" fill="#25D366" class="wa-svg-icon">
@@ -79,16 +108,6 @@
             </div>
         </div>
     </header>
-
-    <!-- MOBILE NAV DRAWER -->
-    <div class="mobile-nav-drawer" id="mobileNavDrawer">
-        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
-        <a href="#products" class="mobile-nav-link active" data-cat="all" onclick="filterCategory('all', event); toggleMobileNav();">All</a>
-        <a href="#products" class="mobile-nav-link" data-cat="jewelry" onclick="filterCategory('jewelry', event); toggleMobileNav();">Jewelry</a>
-        <a href="#products" class="mobile-nav-link" data-cat="fashion" onclick="filterCategory('fashion', event); toggleMobileNav();">Fashion</a>
-        <a href="#products" class="mobile-nav-link" data-cat="accessories" onclick="filterCategory('accessories', event); toggleMobileNav();">Accessories</a>
-        <a href="#reviews" class="mobile-nav-link" onclick="elegantScrollTo('#reviews', { event }); toggleMobileNav();">Reviews</a>
-    </div>
 
     <!-- 3. SPLIT HERO SECTION -->
     <section class="hero-section">
@@ -471,8 +490,8 @@
                 }
             });
 
-            // Sync navbar category links (desktop + mobile drawer)
-            const navLinks = document.querySelectorAll('.nav-categories .nav-link, .mobile-nav-drawer .mobile-nav-link');
+            // Sync navbar category links (desktop + mobile popup dropdown)
+            const navLinks = document.querySelectorAll('.nav-categories .nav-link, .mobile-nav-popup .mobile-popup-link');
             navLinks.forEach(link => {
                 const dataCat = link.getAttribute('data-cat');
                 if (dataCat === cat) {
@@ -604,14 +623,43 @@
         renderProducts(PRODUCTS);
         updateCartUI();
 
-        // Mobile nav toggle
-        function toggleMobileNav() {
-            const drawer = document.getElementById('mobileNavDrawer');
-            drawer.classList.toggle('active');
-            document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+        // Floating Mobile Nav Popup Toggle
+        function toggleMobileNav(event) {
+            if (event && event.stopPropagation) event.stopPropagation();
+            const popup = document.getElementById('mobileNavPopup');
+            const backdrop = document.getElementById('mobilePopupBackdrop');
+            const btn = document.getElementById('hamburgerBtn');
+            const isOpen = popup.classList.contains('active');
+            
+            if (isOpen) {
+                closeMobileNav();
+            } else {
+                popup.classList.add('active');
+                backdrop.classList.add('active');
+                if (btn) btn.classList.add('active');
+            }
         }
+
+        function closeMobileNav() {
+            const popup = document.getElementById('mobileNavPopup');
+            const backdrop = document.getElementById('mobilePopupBackdrop');
+            const btn = document.getElementById('hamburgerBtn');
+            if (popup) popup.classList.remove('active');
+            if (backdrop) backdrop.classList.remove('active');
+            if (btn) btn.classList.remove('active');
+        }
+
         // Expose globally for onclick handlers
         window.toggleMobileNav = toggleMobileNav;
+        window.closeMobileNav = closeMobileNav;
+
+        // Dismiss on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMobileNav();
+                toggleCart(false);
+            }
+        });
     </script>
 </body>
 </html>

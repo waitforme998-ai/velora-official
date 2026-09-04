@@ -272,6 +272,7 @@ button {
     display: flex;
     align-items: center;
     gap: 16px;
+    position: relative;
 }
 
 .btn-standalone-wa {
@@ -1119,12 +1120,16 @@ button {
     position: fixed;
     top: 0;
     right: 0;
-    width: 100%;
-    max-width: 420px;
+    width: 84vw;
+    max-width: 400px;
+    min-width: 290px;
     height: 100%;
     background: #FFFFFF;
     z-index: 1001;
-    box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    border-left: 1.5px solid rgba(212, 175, 55, 0.3);
+    box-shadow: -15px 0 50px rgba(20, 16, 14, 0.22);
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
@@ -1338,63 +1343,95 @@ button {
         display: flex !important;
     }
 
-    /* Mobile nav drawer */
-    .mobile-nav-drawer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100dvh;
+    /* Floating Rounded Category Dropdown (Anchored right below 3 bars) */
+    .mobile-nav-popup {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 0;
+        width: 250px;
         background: rgba(255, 255, 255, 0.97);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        z-index: 950;
+        backdrop-filter: blur(28px) saturate(190%);
+        -webkit-backdrop-filter: blur(28px) saturate(190%);
+        border: 1.5px solid rgba(212, 175, 55, 0.35);
+        border-radius: 18px;
+        box-shadow: 0 16px 45px rgba(20, 16, 14, 0.18), 0 2px 10px rgba(212, 175, 55, 0.1);
+        padding: 8px;
+        z-index: 960;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        gap: 4px;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.35s ease, visibility 0.35s ease;
+        transform: scale(0.92) translateY(-8px);
+        transform-origin: top right;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                    opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                    visibility 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
     }
 
-    .mobile-nav-drawer.active {
+    .mobile-nav-popup.active {
         opacity: 1;
         visibility: visible;
+        transform: scale(1) translateY(0);
+        pointer-events: auto;
     }
 
-    .mobile-nav-drawer .mobile-nav-link {
-        font-family: var(--font-heading);
-        font-size: 1.6rem;
-        font-weight: 600;
-        color: var(--color-text-primary);
-        padding: 14px 32px;
+    .mobile-popup-header {
+        padding: 8px 12px 6px;
+        font-size: 0.68rem;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
-        transition: color 0.3s ease;
-        text-align: center;
-    }
-
-    .mobile-nav-drawer .mobile-nav-link:hover,
-    .mobile-nav-drawer .mobile-nav-link:active {
+        letter-spacing: 0.16em;
         color: var(--color-gold-dark);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+        margin-bottom: 4px;
     }
 
-    .mobile-nav-close {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        width: 44px;
-        height: 44px;
+    .mobile-popup-link {
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
+        justify-content: space-between;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        font-weight: 500;
         color: var(--color-text-primary);
-        background: none;
-        border: none;
-        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mobile-popup-link:hover,
+    .mobile-popup-link.active {
+        background: rgba(212, 175, 55, 0.12);
+        color: var(--color-gold-dark);
+        font-weight: 600;
+    }
+
+    .popup-arrow {
+        font-size: 0.85rem;
+        color: var(--color-gold);
+        transition: transform 0.2s ease;
+    }
+
+    .mobile-popup-link:hover .popup-arrow {
+        transform: translateX(3px);
+    }
+
+    .mobile-popup-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 955;
+        background: rgba(0, 0, 0, 0.12);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        display: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+    }
+
+    .mobile-popup-backdrop.active {
+        display: block;
+        opacity: 1;
     }
 
     /* HERO SECTION — Mobile Adaptation */
@@ -1632,9 +1669,13 @@ button {
         text-align: center;
     }
 
-    /* CART DRAWER — Full width on mobile */
+    /* CART DRAWER — Never covers full screen on mobile (stays as a luxury side sheet) */
     .cart-drawer {
-        max-width: 100%;
+        width: 84vw;
+        max-width: 340px;
+        min-width: 280px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
     }
 
     /* FLOATING WA BUTTON — slightly smaller */
@@ -1697,6 +1738,10 @@ button {
     .trust-main-heading {
         font-size: 1.15rem;
     }
+
+    .mobile-nav-popup {
+        width: 220px;
+    }
 }
 
 /* === HAMBURGER BUTTON (hidden on desktop) === */
@@ -1714,6 +1759,8 @@ button {
     padding: 8px;
     border-radius: 8px;
     transition: background 0.2s ease;
+    position: relative;
+    z-index: 965;
 }
 
 .hamburger-btn:hover {
@@ -1726,5 +1773,20 @@ button {
     height: 1.8px;
     background: var(--color-text-primary);
     border-radius: 2px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transform-origin: center;
+}
+
+/* Hamburger active transformation to X */
+.hamburger-btn.active span:nth-child(1) {
+    transform: translateY(6.8px) rotate(45deg);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger-btn.active span:nth-child(3) {
+    transform: translateY(-6.8px) rotate(-45deg);
 }
