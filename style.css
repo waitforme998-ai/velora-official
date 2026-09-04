@@ -1328,31 +1328,72 @@ button {
         padding: 6px 0;
     }
 
-    /* NAVIGATION — HAMBURGER TRIGGER */
+    /* NAVIGATION — CRYSTAL CLEAR MOBILE GLASSMORPHIC BAR */
+    .main-nav {
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        box-shadow: 0 2px 16px rgba(20, 16, 14, 0.05);
+    }
+
     .nav-inner {
-        height: 60px;
+        height: 56px;
+        padding: 0 4px;
+    }
+
+    .nav-brand {
+        gap: 8px;
+        flex-shrink: 0;
     }
 
     .nav-logo-badge {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
     }
 
     .brand-title {
-        font-size: 1.3rem;
+        font-size: 1.15rem;
+        letter-spacing: 0.08em;
     }
 
     .brand-tagline {
-        font-size: 0.58rem;
+        font-size: 0.48rem;
+        letter-spacing: 0.1em;
     }
 
     .nav-categories {
         display: none;
     }
 
-    /* Hamburger button — visible on mobile only */
+    .nav-actions {
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    .btn-standalone-wa {
+        order: 1;
+        padding: 2px;
+    }
+
+    .btn-standalone-wa svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .btn-nav-action {
+        order: 2;
+        width: 34px;
+        height: 34px;
+    }
+
+    /* Hamburger button — visible on mobile only, anchored on the far right */
     .hamburger-btn {
+        order: 3;
         display: flex !important;
+        width: 34px;
+        height: 34px;
+        padding: 5px;
     }
 
     /* Floating Rounded Category Dropdown (Anchored right below 3 bars) */
@@ -1446,7 +1487,7 @@ button {
         opacity: 1;
     }
 
-    /* HERO SECTION — Mobile Luxury Editorial Cover with Ride-Over Curtain Effect */
+    /* HERO SECTION — Mobile Refined Luxury Layout (Clean, Airy & Uncongested) */
     .hero-section {
         position: fixed;
         top: 0;
@@ -1458,8 +1499,11 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: calc(60px + 30px + 8px) 14px 18px;
-        background: var(--color-bg-primary);
+        padding-top: calc(60px + 30px); /* Nav 60px + Announcement ~30px */
+        padding-bottom: 24px;
+        padding-left: 16px;
+        padding-right: 16px;
+        background: radial-gradient(circle at 50% 35%, rgba(212, 175, 55, 0.08) 0%, rgba(250, 247, 242, 0.95) 60%, var(--color-bg-primary) 100%);
         overflow: hidden;
     }
 
@@ -1474,26 +1518,30 @@ button {
     .hero-grid {
         display: flex;
         flex-direction: column;
-        position: relative;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 12px;
         width: 100%;
-        max-width: 440px;
-        height: 100%;
-        border-radius: 24px;
-        overflow: hidden;
-        box-shadow: 0 16px 40px rgba(20, 16, 14, 0.2), 0 0 0 1.5px rgba(212, 175, 55, 0.4);
-        background: #14100E;
+        max-width: 380px;
+        height: auto;
+        position: relative;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
     }
 
+    /* Refined Luxury Portrait Frame — Balanced scale, NOT too big, NO ugly crop */
     .hero-visual {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        max-height: none;
-        border-radius: 0;
-        z-index: 1;
+        position: relative;
+        width: clamp(150px, 38vw, 195px);
+        height: clamp(175px, 45vw, 230px);
+        border-radius: 20px;
         overflow: hidden;
-        background: #14100E;
+        box-shadow: 0 12px 32px rgba(20, 16, 14, 0.12), 0 0 0 1.5px rgba(212, 175, 55, 0.35);
+        background: #F0ECE6;
+        flex-shrink: 0;
+        margin-bottom: 2px;
         opacity: 1 !important;
         transform: none !important;
     }
@@ -1502,67 +1550,54 @@ button {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center 15%; /* Frames forehead jewelry, passsa, earrings & eyes in clear view */
-        filter: brightness(0.96) contrast(1.04);
+        object-position: center 18%; /* Perfectly frames tika, passa, eyes, earrings & neckline */
+        filter: brightness(0.98) contrast(1.02);
     }
 
     .hero-visual::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(
-            180deg, 
-            rgba(20, 16, 14, 0.1) 0%, 
-            rgba(20, 16, 14, 0.0) 35%, 
-            rgba(20, 16, 14, 0.5) 60%, 
-            rgba(20, 16, 14, 0.92) 85%, 
-            rgba(20, 16, 14, 0.98) 100%
-        );
-        z-index: 2;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
         pointer-events: none;
     }
 
     .hero-visual-badge {
         position: absolute;
-        top: 14px;
-        left: 14px;
-        bottom: auto;
-        z-index: 3;
-        background: rgba(20, 16, 14, 0.8);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        padding: 5px 12px;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: auto;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 4px 12px;
         border-radius: 20px;
-        border: 1px solid rgba(212, 175, 55, 0.4);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        white-space: nowrap;
     }
 
     .hero-visual-badge .tag {
-        font-size: 0.55rem;
-        letter-spacing: 0.16em;
+        font-size: 0.52rem;
+        letter-spacing: 0.14em;
         font-weight: 700;
-        color: #E2C067;
+        color: var(--color-gold-dark);
         text-transform: uppercase;
     }
 
     .hero-visual-badge .title {
-        font-family: var(--font-heading);
-        font-size: 0.78rem;
-        font-weight: 600;
-        color: #FAF7F2;
+        display: none; /* Hide secondary title on mobile to eliminate clutter */
     }
 
     .hero-content {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 3;
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 16px 16px 20px;
+        padding: 0;
         width: 100%;
         background: transparent;
         opacity: 1 !important;
@@ -1574,38 +1609,42 @@ button {
         align-items: center;
         gap: 6px;
         font-size: 0.62rem;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.18em;
         font-weight: 600;
-        color: #E2C067;
+        color: var(--color-gold-dark);
         text-transform: uppercase;
         margin-bottom: 2px;
         justify-content: center;
-        text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
+
+    .hero-tag::before {
+        content: '';
+        width: 14px;
+        height: 1px;
+        background: var(--color-gold);
     }
 
     .hero-title {
         font-family: var(--font-heading);
-        font-size: clamp(1.75rem, 6.5vw, 2.3rem);
-        line-height: 1.05;
-        color: #FFFFFF;
+        font-size: clamp(1.65rem, 5.8vw, 2.15rem);
+        line-height: 1.08;
+        color: var(--color-text-primary);
         margin-bottom: 4px;
         text-align: center;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.6);
     }
 
     .hero-title em {
         font-style: italic;
-        color: #F5DC9A;
+        color: var(--color-gold-dark);
     }
 
     .hero-desc {
         font-size: 0.78rem;
         line-height: 1.35;
-        color: rgba(255, 255, 255, 0.88);
+        color: var(--color-text-secondary);
         text-align: center;
         margin-bottom: 12px;
-        max-width: 320px;
-        text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+        max-width: 300px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -1619,38 +1658,37 @@ button {
         justify-content: center;
         gap: 8px;
         width: 100%;
-        max-width: 360px;
+        max-width: 320px;
     }
 
     .hero-actions .btn-primary {
         background: linear-gradient(135deg, #E8C872 0%, #C5A355 50%, #A07C2E 100%);
         color: #14100E;
         font-weight: 700;
-        padding: 11px 14px;
-        font-size: 0.72rem;
-        letter-spacing: 0.06em;
-        flex: 1;
+        padding: 10px 12px;
+        font-size: 0.7rem;
+        letter-spacing: 0.03em;
+        flex: 1.05;
         text-align: center;
         white-space: nowrap;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+        border-radius: 8px;
+        box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
         border: none;
     }
 
     .hero-actions .btn-secondary {
-        background: rgba(255, 255, 255, 0.14);
-        color: #FFFFFF;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: #FFFFFF;
+        color: var(--color-text-primary);
+        border: 1px solid rgba(212, 175, 55, 0.35);
         font-weight: 600;
-        padding: 11px 14px;
-        font-size: 0.72rem;
-        letter-spacing: 0.06em;
-        flex: 1;
+        padding: 10px 10px;
+        font-size: 0.7rem;
+        letter-spacing: 0.03em;
+        flex: 0.95;
         text-align: center;
         white-space: nowrap;
-        border-radius: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     /* RIDE-OVER SHEET — Mobile Curtain Overlay that slides over the fixed hero on scroll */
@@ -1868,30 +1906,33 @@ button {
 /* --- Small phones (480px and below) --- */
 @media (max-width: 480px) {
     .hero-section {
-        padding: calc(56px + 28px + 6px) 10px 14px;
+        padding-top: calc(56px + 28px);
+        padding-bottom: 16px;
     }
 
-    .hero-grid {
-        border-radius: 20px;
+    .hero-visual {
+        width: clamp(130px, 34vw, 165px);
+        height: clamp(150px, 39vw, 190px);
     }
 
     .hero-title {
-        font-size: clamp(1.55rem, 6.8vw, 1.95rem);
+        font-size: clamp(1.45rem, 6.2vw, 1.8rem);
     }
 
     .hero-desc {
-        font-size: 0.74rem;
-        margin-bottom: 10px;
-        max-width: 290px;
+        font-size: 0.72rem;
+        margin-bottom: 8px;
+        max-width: 270px;
     }
 
     .hero-actions {
         gap: 6px;
+        max-width: 280px;
     }
 
     .hero-actions .btn-primary,
     .hero-actions .btn-secondary {
-        padding: 9px 10px;
+        padding: 8px 10px;
         font-size: 0.68rem;
     }
 
